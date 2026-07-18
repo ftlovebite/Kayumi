@@ -1,5 +1,4 @@
 import os
-import json
 import logging
 import discord
 from discord.ext import commands
@@ -13,18 +12,6 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s | %(levelname)s | %(message)s"
 )
-
-if not os.path.exists("config.json"):
-    default = {
-        "token": "",
-        "prefix": "!",
-        "owners": [],
-        "default_volume": 80,
-        "theme": "purple"
-    }
-
-    with open("config.json", "w") as f:
-        json.dump(default, f, indent=4)
 
 TOKEN = config.token
 PREFIX = config.prefix
