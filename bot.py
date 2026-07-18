@@ -1,5 +1,5 @@
 import os
-import logging
+from core.logger import logger
 import discord
 from discord.ext import commands
 from core.config import config
