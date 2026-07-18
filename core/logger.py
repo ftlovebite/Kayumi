@@ -1,5 +1,6 @@
-from core.logger import logger
+import logging
 import sys
+
 
 class CustomFormatter(logging.Formatter):
     FORMATS = {
