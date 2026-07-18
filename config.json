@@ -1,0 +1,9 @@
+{
+    "token": "YOUR_TOKEN_HERE",
+    "prefix": "!",
+    "owners": [
+        123456789012345678
+    ],
+    "default_volume": 80,
+    "theme": "purple"
+}
