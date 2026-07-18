@@ -3,6 +3,7 @@ import json
 import logging
 import discord
 from discord.ext import commands
+from core.config import config
 
 ###########################################################
 # KAYUMI MUSIC BOT
@@ -25,11 +26,8 @@ if not os.path.exists("config.json"):
     with open("config.json", "w") as f:
         json.dump(default, f, indent=4)
 
-with open("config.json", "r") as f:
-    CONFIG = json.load(f)
-
-TOKEN = CONFIG["token"]
-PREFIX = CONFIG["prefix"]
+TOKEN = config.token
+PREFIX = config.prefix
 
 intents = discord.Intents.all()
 
@@ -76,7 +74,7 @@ async def on_ready():
 ###########################################################
 
 def is_owner(user_id: int):
-    return user_id in CONFIG["owners"]
+    return config.is_owner(user_id)
 
 
 ###########################################################
