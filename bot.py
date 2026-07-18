@@ -8,10 +8,6 @@ from core.config import config
 # KAYUMI MUSIC BOT
 ###########################################################
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s | %(levelname)s | %(message)s"
-)
 
 TOKEN = config.token
 PREFIX = config.prefix
