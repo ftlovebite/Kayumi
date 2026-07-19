@@ -1,7 +1,8 @@
 import json
 from pathlib import Path
 
-CONFIG_PATH = Path("config.json")
+BASE_DIR = Path(__file__).resolve().parent.parent
+CONFIG_PATH = BASE_DIR / "config.json"
 
 
 class Config:
