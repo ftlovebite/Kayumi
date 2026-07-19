@@ -1,13 +1,12 @@
-import os
-from core.logger import logger
 import discord
 from discord.ext import commands
+
 from core.config import config
+from core.logger import logger
 
 ###########################################################
 # KAYUMI MUSIC BOT
 ###########################################################
-
 
 TOKEN = config.token
 PREFIX = config.prefix
@@ -20,6 +19,13 @@ bot = commands.Bot(
     help_command=None
 )
 
+###########################################################
+# LOAD COGS
+###########################################################
+
+@bot.event
+async def setup_hook():
+    await bot.load_extension("cogs.music")
 
 ###########################################################
 # EVENTS
@@ -28,21 +34,21 @@ bot = commands.Bot(
 @bot.event
 async def on_ready():
 
-    print("=" * 60)
-    print("        KAYUMI PREMIUM MUSIC BOT")
-    print("=" * 60)
+    logger.info("=" * 60)
+    logger.info("        KAYUMI PREMIUM MUSIC BOT")
+    logger.info("=" * 60)
 
-    print(f"Logged in as : {bot.user}")
-    print(f"Servers      : {len(bot.guilds)}")
-    print(f"Prefix       : {PREFIX}")
+    logger.info(f"Logged in as : {bot.user}")
+    logger.info(f"Servers      : {len(bot.guilds)}")
+    logger.info(f"Prefix       : {PREFIX}")
 
-    print("=" * 60)
+    logger.info("=" * 60)
 
     try:
         synced = await bot.tree.sync()
-        print(f"Synced {len(synced)} Slash Commands")
+        logger.info(f"Synced {len(synced)} Slash Commands")
     except Exception as e:
-        print(e)
+        logger.error(e)
 
     await bot.change_presence(
         activity=discord.Activity(
@@ -51,7 +57,6 @@ async def on_ready():
         )
     )
 
-
 ###########################################################
 # OWNER CHECK
 ###########################################################
@@ -59,18 +64,15 @@ async def on_ready():
 def is_owner(user_id: int):
     return config.is_owner(user_id)
 
-
 ###########################################################
 # PREFIX COMMAND
 ###########################################################
 
 @bot.command()
 async def ping(ctx):
-
     await ctx.send(
-        f"🏓 Pong! `{round(bot.latency*1000)}ms`"
+        f"🏓 Pong! `{round(bot.latency * 1000)}ms`"
     )
-
 
 ###########################################################
 # SLASH COMMAND
@@ -81,11 +83,9 @@ async def ping(ctx):
     description="Shows bot latency."
 )
 async def ping_slash(interaction: discord.Interaction):
-
     await interaction.response.send_message(
-        f"🏓 Pong! `{round(bot.latency*1000)}ms`"
+        f"🏓 Pong! `{round(bot.latency * 1000)}ms`"
     )
-
 
 ###########################################################
 # START
