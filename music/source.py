@@ -1,3 +1,4 @@
+import asyncio
 import yt_dlp
 
 from music.song import Song
@@ -6,8 +7,8 @@ YTDL_OPTIONS = {
     "format": "bestaudio/best",
     "quiet": True,
     "default_search": "ytsearch",
-    "extract_flat": False,
     "noplaylist": True,
+    "extract_flat": False,
 }
 
 
@@ -16,9 +17,14 @@ class YTDLSource:
     def __init__(self):
         self.ytdl = yt_dlp.YoutubeDL(YTDL_OPTIONS)
 
-    def search(self, query: str, requester: int):
+    async def search(self, query: str, requester: int):
 
-        info = self.ytdl.extract_info(query, download=False)
+        loop = asyncio.get_running_loop()
+
+        info = await loop.run_in_executor(
+            None,
+            lambda: self.ytdl.extract_info(query, download=False)
+        )
 
         if "entries" in info:
             info = info["entries"][0]
